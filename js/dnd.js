@@ -1,5 +1,5 @@
 var elemArray = [];
-var BASE_WIDTH = 200;
+var BASE_WIDTH = 206;
 var num = [-1, 1];
 
 $(document).ready(function() {
@@ -31,8 +31,8 @@ function createItems() {
             'position': 'absolute',
             'left': (itemWidth * col),
             'top': (itemWidth * row),
-            'width': itemWidth,
-            'height': itemWidth
+            'width': (itemWidth - 6),
+            'height': (itemWidth - 6)
         });
         $('#container').append(_item);
 
@@ -67,8 +67,8 @@ function updateItems() {
         }
         elemArray[i].x = itemWidth * col;
         elemArray[i].y = itemWidth * row;
-        elemArray[i].width = itemWidth;
-        elemArray[i].height = itemWidth;
+        elemArray[i].width = (itemWidth - 6);
+        elemArray[i].height = (itemWidth - 6);
 
         col++;
     }
