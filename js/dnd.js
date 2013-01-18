@@ -26,7 +26,7 @@ function createItems() {
             col = 0;
             row++;
         }
-        _item = $('<div class="block"><div class="inner"><div class="shadow ' + depth[Math.floor(Math.random() * depth.length)] + '"></div></div></div>');
+        _item = $('<div class="block"><div class="inner"><div class="shadow ' + depth[Math.floor(Math.random() * depth.length)] + '">' + (i + 1) + '</div></div></div>');
         $(_item).css({
             'position': 'absolute',
             'left': (itemWidth * col),
@@ -100,9 +100,9 @@ function removeItems() {
     $.each(elemArray, function(index) {
         $(elemArray[index].obj).addClass('animating');
         $(elemArray[index].obj).delay(Math.random() * 500).animate({
-            'top': (screen.height * num[Math.floor(Math.random() * num.length)]),
-            'left': (screen.width * num[Math.floor(Math.random() * num.length)])
-        }, Math.random() * 1000);
+            'top': (screen.height * num[Math.floor(Math.random() * num.length)])
+            ,'left': (screen.width * num[Math.floor(Math.random() * num.length)])
+        }, Math.random() * 2000, 'swing');
     });
 }
 
@@ -111,7 +111,7 @@ function returnItems() {
         $(elemArray[index].obj).delay(Math.random() * 500).animate({
             'top': elemArray[index].y,
             'left': elemArray[index].x
-        }, Math.random() * 1000);
+        }, Math.random() * 2000);
     });
 }
 

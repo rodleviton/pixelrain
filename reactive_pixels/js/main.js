@@ -5,10 +5,11 @@ $(function() {
     var offset = 10;
     var timer;
 
-    for (var i = 0; i < 99; i++) {
+    for (var i = 0; i < 30; i++) {
         divs.push('#div-0' + (i + 1));
         var top = (Math.random() * 800);
-        var left = (Math.random() * 1200)
+        var left = (Math.random() * 1200);
+        //-webkit-transform: rotate(' + (Math.random() * 360) + 'deg);
         var el = $('<div id="div-0' + (i + 1) + '" class="block" style="left:' + left + 'px; top:' + top + 'px;">' + (i + 1) + '</div>');
         $(el).data({
             'left': left,
