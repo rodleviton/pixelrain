@@ -1,6 +1,8 @@
 var elemArray = [];
-var BASE_WIDTH = 206;
+var BASE_WIDTH = 210;
+var BASE_HEIGHT = 140;
 var num = [-1, 1];
+var offset = 6; //Allows for border
 
 $(document).ready(function() {
     createItems();
@@ -15,8 +17,9 @@ function createItems() {
     var totalItems = 106;
 
     // x configuration
-    var xConfig = getConfigX(BASE_WIDTH);
+    var xConfig = getConfigX(BASE_WIDTH, BASE_HEIGHT);
     var itemWidth = xConfig.itemWidth;
+    var itemHeight = xConfig.itemHeight;
     var itemsX = xConfig.items;
 
     var row = 0;
@@ -30,9 +33,9 @@ function createItems() {
         $(_item).css({
             'position': 'absolute',
             'left': (itemWidth * col),
-            'top': (itemWidth * row),
-            'width': (itemWidth - 6),
-            'height': (itemWidth - 6)
+            'top': (itemHeight * row),
+            'width': (itemWidth - offset),
+            'height': (itemHeight - offset)
         });
         $('#container').append(_item);
 
@@ -53,9 +56,9 @@ function createItems() {
 
 function updateItems() {
 
-    // x configuration
-    var xConfig = getConfigX(BASE_WIDTH);
+    var xConfig = getConfigX(BASE_WIDTH, BASE_HEIGHT);
     var itemWidth = xConfig.itemWidth;
+    var itemHeight = xConfig.itemHeight;
     var itemsX = xConfig.items;
 
     var row = 0;
@@ -66,9 +69,9 @@ function updateItems() {
             row++;
         }
         elemArray[i].x = itemWidth * col;
-        elemArray[i].y = itemWidth * row;
-        elemArray[i].width = (itemWidth - 6);
-        elemArray[i].height = (itemWidth - 6);
+        elemArray[i].y = itemHeight * row;
+        elemArray[i].width = (itemWidth - offset);
+        elemArray[i].height = (itemHeight - offset);
 
         col++;
     }
@@ -76,42 +79,59 @@ function updateItems() {
 }
 
 function updateScreen() {
-    // Need to update item then have a condition to check if items are currently being displayed
+
     $.each(elemArray, function(index) {
-        $(elemArray[index].obj).delay(Math.random() * 500).animate({
-            'top': elemArray[index].y,
-            'left': elemArray[index].x,
-            'width': elemArray[index].width,
-            'height': elemArray[index].height
-        }, Math.random() * 1000);
+        
+        TweenLite.to(elemArray[index].obj, (Math.random() * 1), 
+            {
+                width: elemArray[index].width,
+                height: elemArray[index].height,
+                top: elemArray[index].y,
+                left: elemArray[index].x,
+                delay: (Math.random() * .5),
+                ease:Power2.easeInOut
+            });
+
     });
+
 }
 
-function getConfigX(width) {
+function getConfigX(width, height) {
     var _items = ($(window).width() / width);
     var _width = ((_items * width) / Math.ceil(_items));
+    var _height = ((_items * height) / Math.ceil(_items));
     return {
         'items': Math.ceil(_items),
-        'itemWidth': _width
+        'itemWidth': _width,
+        'itemHeight': _height
     };
 }
 
 function removeItems() {
     $.each(elemArray, function(index) {
         $(elemArray[index].obj).addClass('animating');
-        $(elemArray[index].obj).delay(Math.random() * 500).animate({
-            'top': (screen.height * num[Math.floor(Math.random() * num.length)])
-            ,'left': (screen.width * num[Math.floor(Math.random() * num.length)])
-        }, Math.random() * 2000, 'swing');
+            
+            TweenLite.to(elemArray[index].obj, (Math.random() * 1.5), 
+            {
+                top: (screen.height * num[Math.floor(Math.random() * num.length)]),
+                left: (screen.width * num[Math.floor(Math.random() * num.length)]),
+                delay: (Math.random() * .5),
+                ease:Power2.easeInOut
+            });
+        
     });
 }
 
 function returnItems() {
     $.each(elemArray, function(index) {
-        $(elemArray[index].obj).delay(Math.random() * 500).animate({
-            'top': elemArray[index].y,
-            'left': elemArray[index].x
-        }, Math.random() * 2000);
+
+        TweenLite.to(elemArray[index].obj, (Math.random() * 3), 
+            {
+                top: elemArray[index].y,
+                left: elemArray[index].x,
+                delay: (Math.random() * .5),
+                ease:Power2.easeInOut
+            });        
     });
 }
 
